@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SpendCal Captcha</title>
-  <script src="https://www.google.com/recaptcha/api.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <style>
     body {
       display: flex;
@@ -27,18 +27,15 @@
       data-sitekey="6LdO5gcrAAAAAD8HMkQWmBtsWDqyczx2JKbt6gnv"
       data-callback="onCaptchaSuccess"
     ></div>
-    <button class="g-recaptcha" 
-        data-sitekey="6LdO5gcrAAAAAD8HMkQWmBtsWDqyczx2JKbt6gnv" 
-        data-callback='onSubmit' 
-        data-action='submit'>Submit</button>
   </div>
 
   <script>
     function onCaptchaSuccess(token) {
+      // Si estamos dentro de una WebView en iOS
       if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.captchaHandler) {
         window.webkit.messageHandlers.captchaHandler.postMessage(token);
       } else {
-        alert("Captcha solved: " + token);
+        alert("Captcha solved: " + token); // Para pruebas en navegador
       }
     }
   </script>
